@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Thank You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ CINEMATIC ENTRANCE OVERLAY ============ -->
+<div id="entrance-overlay">
+  <div class="entrance-glyph">𓁹</div>
+  <div class="entrance-line"></div>
+  <p class="entrance-label">OPENING THE GATES OF GRATITUDE</p>
+</div>
+
+<!-- ============ GOLDEN SAND PARTICLES CANVAS ============ -->
+<canvas id="sand-canvas"></canvas>
+
+<!-- ============ AMBIENT MUSIC CONTROL ============ -->
+<div class="music-control" id="music-control" role="button" tabindex="0" aria-label="Toggle ambient music">
+  <svg viewBox="0 0 24 24" class="icon-play" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 3.5L19 12L5 20.5V3.5Z" fill="currentColor"/>
+  </svg>
+  <svg viewBox="0 0 24 24" class="icon-pause" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <rect x="5" y="3.5" width="4.5" height="17" fill="currentColor"/>
+    <rect x="14.5" y="3.5" width="4.5" height="17" fill="currentColor"/>
+  </svg>
+  <span class="music-label">Temple Ambience</span>
+</div>
+<audio id="bg-audio" loop preload="none">
+  <!-- Add your own ambient track here, e.g.: <source src="ambient.mp3" type="audio/mpeg"> -->
+</audio>
+
+<!-- ============ SCARAB (animates across screen) ============ -->
+<div class="scarab" id="scarab" aria-hidden="true">𓆣</div>
+
+<!-- ============ HIEROGLYPH FRIEZE TEMPLATE (cloned via JS) ============ -->
+<template id="frieze-template">
+  <div class="frieze-row">𓂀 𓅓 𓆣 𓊪 𓈖 𓏏 𓆼 𓊵 𓋹 𓁶 𓊹 𓄿 𓏤 𓂧 𓅱 𓎛 𓋴 𓅡 𓏠 𓊃</div>
+</template>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 — HERO / TEMPLE ENTRANCE -->
+<!-- ============================================================ -->
+<section class="section hero" id="hero">
+  <div class="stars" id="stars"></div>
+
+  <svg class="rays-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="rayGlow" cx="50%" cy="78%" r="60%">
+        <stop offset="0%" stop-color="#F2D680" stop-opacity="0.55"/>
+        <stop offset="40%" stop-color="#D4AF37" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="rayLine" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#F2D680" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#F2D680" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <circle cx="800" cy="780" r="500" fill="url(#rayGlow)" class="ray-pulse"/>
+    <g class="ray-group">
+      <!-- rays fan out from behind pyramid apex -->
+      <polygon points="800,760 560,1000 660,1000" fill="url(#rayLine)" class="ray r1"/>
+      <polygon points="800,760 700,1000 800,1000" fill="url(#rayLine)" class="ray r2"/>
+      <polygon points="800,760 860,1000 960,1000" fill="url(#rayLine)" class="ray r3"/>
+      <polygon points="800,760 1000,1000 1120,1000" fill="url(#rayLine)" class="ray r4"/>
+      <polygon points="800,760 480,1000 380,1000" fill="url(#rayLine)" class="ray r5"/>
+      <polygon points="800,760 1180,1000 1280,1000" fill="url(#rayLine)" class="ray r6"/>
+    </g>
+  </svg>
+
+  <svg class="pyramid-svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <polygon points="800,180 1120,640 480,640" fill="#0d0905" stroke="#3a2a12" stroke-width="2"/>
+    <polygon points="800,180 1120,640 940,640" fill="#100a06" opacity="0.7"/>
+    <line x1="800" y1="180" x2="800" y2="640" stroke="#2a1e0f" stroke-width="1.5" opacity="0.6"/>
+    <polygon points="1180,640 1340,640 1300,520 1220,520" fill="#0d0905" stroke="#2a1e0f" stroke-width="1.5"/>
+    <polygon points="300,640 460,640 425,535 335,535" fill="#0a0704" stroke="#241a0c" stroke-width="1.5"/>
+    <rect x="0" y="630" width="1600" height="70" fill="#070503"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="eyebrow reveal-up"><span class="glyph">𓊪 𓏏 𓊃</span> &nbsp;·&nbsp; AN OFFERING OF GRATITUDE &nbsp;·&nbsp; <span class="glyph">𓊃 𓏏 𓊪</span></p>
+    <h1 class="hero-title" id="hero-title" aria-label="A Special Thank You"></h1>
+    <div class="hero-divider reveal-up">
+      <span class="divider-line"></span>
+      <span class="divider-glyph">𓋹</span>
+      <span class="divider-line"></span>
+    </div>
+    <p class="hero-sub reveal-up">For Dr. Soha — Inscribed in gold, carried in our hearts</p>
+  </div>
+
+  <div class="scroll-cue reveal-up" id="scroll-cue">
+    <span>Enter the Temple</span>
+    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- frieze seam -->
+<div class="frieze-seam" data-frieze></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 — THE STELA (carved message) -->
+<!-- ============================================================ -->
+<section class="section stela-section" id="stela">
+  <div class="lotus-bg" aria-hidden="true">
+    <svg viewBox="0 0 200 200"><path d="M100 190 C100 140 60 130 40 90 C70 100 90 70 100 30 C110 70 130 100 160 90 C140 130 100 140 100 190 Z" fill="none" stroke="#7BA88E" stroke-width="1.2" opacity="0.5"/></svg>
+  </div>
+
+  <div class="stela-wrap reveal-section">
+    <div class="stela-frame">
+      <div class="stela-corner tl">𓊽</div>
+      <div class="stela-corner tr">𓊽</div>
+      <div class="stela-corner bl">𓊽</div>
+      <div class="stela-corner br">𓊽</div>
+
+      <p class="stela-label"><span class="glyph">𓂀</span> A LETTER CARVED IN STONE <span class="glyph">𓂀</span></p>
+
+      <div class="stela-text" id="stela-text" aria-live="polite"></div>
+      <span class="caret" id="typing-caret">|</span>
+
+      <div class="torch torch-left" aria-hidden="true"></div>
+      <div class="torch torch-right" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- frieze seam -->
+<div class="frieze-seam" data-frieze></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 — PILLARS OF GRATITUDE -->
+<!-- ============================================================ -->
+<section class="section pillars-section" id="pillars">
+  <p class="section-eyebrow reveal-up"><span class="glyph">𓊹</span> WHAT YOU GAVE US <span class="glyph">𓊹</span></p>
+  <h2 class="section-title reveal-up">Three Pillars You Built Within Us</h2>
+
+  <div class="pillars-row">
+    <div class="pillar reveal-up" style="--delay:0s">
+      <div class="pillar-glyph">𓂓</div>
+      <div class="pillar-col"></div>
+      <h3>Knowledge</h3>
+      <p>You opened doors of understanding we didn't know existed, and lit the path with patience.</p>
+    </div>
+    <div class="pillar reveal-up" style="--delay:0.15s">
+      <div class="pillar-glyph">𓋹</div>
+      <div class="pillar-col"></div>
+      <h3>Guidance</h3>
+      <p>Through every challenge, your steady hand showed us how to find our own way forward.</p>
+    </div>
+    <div class="pillar reveal-up" style="--delay:0.3s">
+      <div class="pillar-glyph">𓆎</div>
+      <div class="pillar-col"></div>
+      <h3>Inspiration</h3>
+      <p>Your dedication taught us to strive for excellence long after we leave this classroom.</p>
+    </div>
+  </div>
+</section>
+
+<!-- frieze seam -->
+<div class="frieze-seam" data-frieze></div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 — THE CARTOUCHE (final) -->
+<!-- ============================================================ -->
+<section class="section cartouche-section" id="cartouche-section">
+  <div class="rays-svg final-rays" aria-hidden="true">
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="finalGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#F2D680" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#F2D680" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="800" cy="500" r="450" fill="url(#finalGlow)" class="ray-pulse"/>
+    </svg>
+  </div>
+
+  <p class="section-eyebrow reveal-up"><span class="glyph">𓊪 𓆎 𓏏 𓏤</span> &nbsp; ETERNAL THANKS &nbsp; <span class="glyph">𓏤𓏏𓆎 𓊪</span></p>
+
+  <div class="cartouche-wrap reveal-section">
+    <svg class="cartouche-svg" viewBox="0 0 620 260" aria-label="Thank you Dr. Soha, inscribed in a royal cartouche">
+      <defs>
+        <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F2D680"/>
+          <stop offset="50%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#9C7A23"/>
+        </linearGradient>
+        <filter id="cartoucheGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <rect x="14" y="20" width="592" height="220" rx="110" fill="none" stroke="url(#goldRing)" stroke-width="9" filter="url(#cartoucheGlow)"/>
+      <rect x="14" y="20" width="592" height="220" rx="110" fill="none" stroke="#1A1108" stroke-width="9" stroke-dasharray="2 10" opacity="0.4"/>
+      <line x1="600" y1="40" x2="600" y2="220" stroke="url(#goldRing)" stroke-width="9"/>
+      <rect x="586" y="14" width="44" height="14" rx="7" fill="url(#goldRing)"/>
+    </svg>
+    <div class="cartouche-text">
+      <span class="cartouche-line1">Thank You</span>
+      <span class="cartouche-line2">Dr. Soha</span>
+    </div>
+  </div>
+
+  <p class="closing-sign reveal-up">With sincere appreciation and respect —<br><span>Your Students</span></p>
+
+  <div class="ankh-footer reveal-up" aria-hidden="true">𓋹</div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
