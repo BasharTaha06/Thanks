@@ -590,7 +590,7 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
 
 @media (max-width: 480px){
   .pillars-row{ grid-template-columns: 1fr; gap: 1.2rem; }
-  .hero-title{ font-size: clamp(2rem, 11vw, 3.2rem); }
+  .hero-title{ font-size: clamp(1.6rem, 9vw, 2.6rem); word-break: keep-all; overflow-wrap: normal; }
   .stela-text{ min-height: 300px; }
   .lotus-bg{ width: 110px; top: 4%; right: 4%; }
   .eyebrow{ letter-spacing: 0.08em; font-size: 0.6rem; }

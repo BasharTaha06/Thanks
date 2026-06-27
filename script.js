@@ -25,13 +25,30 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildLetterTitle(el, text){
     el.innerHTML = '';
     let delay = 0;
-    [...text].forEach((ch) => {
-      const span = document.createElement('span');
-      span.className = 'char';
-      span.textContent = ch === ' ' ? '\u00A0' : ch;
-      span.style.animationDelay = `${delay}s`;
-      delay += ch === ' ' ? 0.02 : 0.045;
-      el.appendChild(span);
+    const words = text.split(' ');
+    words.forEach((word, wi) => {
+      // Wrap each word in a no-break container so the browser never splits mid-word
+      const wordWrap = document.createElement('span');
+      wordWrap.style.display = 'inline-block';
+      wordWrap.style.whiteSpace = 'nowrap';
+      [...word].forEach((ch) => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = ch;
+        span.style.animationDelay = `${delay}s`;
+        delay += 0.045;
+        wordWrap.appendChild(span);
+      });
+      el.appendChild(wordWrap);
+      // Add space between words (not after last word)
+      if (wi < words.length - 1) {
+        const space = document.createElement('span');
+        space.className = 'char';
+        space.textContent = '\u00A0';
+        space.style.animationDelay = `${delay}s`;
+        delay += 0.02;
+        el.appendChild(space);
+      }
     });
   }
   buildLetterTitle(heroTitleEl, 'A Special Thank You');
