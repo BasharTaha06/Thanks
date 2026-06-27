@@ -22,7 +22,7 @@
 }
 
 *{ box-sizing:border-box; margin:0; padding:0; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; overflow-x:hidden; }
 
 body{
   background: var(--bg-void);
@@ -478,8 +478,9 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
   border: 1px solid rgba(212,175,55,0.16);
   border-radius: 4px;
   transition: transform 0.4s var(--ease-temple), border-color 0.4s, box-shadow 0.4s;
-  transition-delay: var(--delay, 0s);
 }
+.pillar.reveal-up{ transition-delay: var(--delay, 0s); }
+.pillar.reveal-up.in-view{ transition-delay: var(--delay, 0s); }
 .pillar:hover{
   transform: translateY(-8px);
   border-color: rgba(212,175,55,0.55);
@@ -579,16 +580,23 @@ a:focus-visible, [tabindex]:focus-visible, button:focus-visible{
    RESPONSIVE
    =========================================================== */
 @media (max-width: 820px){
-  .pillars-row{ grid-template-columns: 1fr; gap: 1.4rem; }
+  .pillars-row{ grid-template-columns: 1fr 1fr; gap: 1.4rem; }
   .section{ padding: 5rem 1.2rem; }
   .stela-frame{ padding: 2.4rem 1.4rem; }
-  .stela-text{ min-height: 420px; font-size: 1rem; }
+  .stela-text{ min-height: 320px; font-size: 1rem; }
   .music-control{ padding: 0.5rem 0.8rem 0.5rem 0.5rem; }
   .music-label{ display:none; }
 }
 
 @media (max-width: 480px){
+  .pillars-row{ grid-template-columns: 1fr; gap: 1.2rem; }
   .hero-title{ font-size: clamp(2rem, 11vw, 3.2rem); }
-  .stela-text{ min-height: 480px; }
+  .stela-text{ min-height: 300px; }
   .lotus-bg{ width: 110px; top: 4%; right: 4%; }
+  .eyebrow{ letter-spacing: 0.08em; font-size: 0.6rem; }
+  .entrance-label{ letter-spacing: 0.1em; font-size: 0.6rem; }
+  .section-eyebrow{ letter-spacing: 0.08em; font-size: 0.62rem; }
+  .stela-label{ letter-spacing: 0.1em; }
+  .section{ padding: 4rem 1rem; }
+  .stela-frame{ padding: 2rem 1.1rem; }
 }
